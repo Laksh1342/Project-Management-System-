@@ -1,7 +1,7 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
 
-{% block title %} Project List {% endblock title %}
+{% block title %} Project Task List {% endblock title %}
 
 {% block content %}
 
@@ -10,12 +10,12 @@
       <div class="header-body">
         <div class="row align-items-center py-4">
           <div class="col-lg-6 col-7">
-            <h6 class="h2 text-white d-inline-block mb-0">Projects</h6>
+            <h6 class="h2 text-white d-inline-block mb-0"> Project Task</h6>
             <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                 <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                     <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
                     <li class="breadcrumb-item"><a href="#">Project</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Project List</li>
+                    <li class="breadcrumb-item active" aria-current="page">Project Task List</li>
                      <div class="header bg-primary pb-6">
      
                 </ol>
@@ -43,13 +43,11 @@
               <div class="card">
                   <!-- Card header -->
                     <div class="card-header border-0 row">
-                      <h3 class="mb-0 col">All Projects</h3>
+                      <h3 class="mb-0 col">All Projects Task</h3>
 
 
-
-
-                       <a href="{% url 'projectcreate' %}" class="btn btn-primary">Create New</a>
-                     
+                       <a href="{% url 'create_project_task' %}" class="btn btn-primary">Create New</a> 
+                    
                     
                     
                     
@@ -59,18 +57,22 @@
             <table class="table align-items-center table-flush text-center">
               <thead class="thead-light">
                 <tr>
-                  <th scope="col" class="sort" data-sort="name">Project</th>
-                  <th scope="col" class="sort" data-sort="budget">Description</th>
-                  <th scope="col" class="sort" data-sort="budget">Technology</th>
+                  <th scope="col" class="sort" data-sort="name">Module</th>
+                  <th scope="col" class="sort" data-sort="budget">Project</th>
+                  <th scope="col" class="sort" data-sort="budget">Title</th>
+                  <th scope="col" class="sort" data-sort="budget">Priority</th>
+                  <th scope="col" class="sort" data-sort="budget">description</th>
                   <th scope="col" class="sort" data-sort="status">Status</th>
-                  <th scope="col" class="sort" data-sort="status">Actions</th>
+                  <th scope="col" class="sort" data-sort="status">Total Minutes</th>
+
+
                   {% comment %} <th scope="col">Users</th>
                   <th scope="col" class="sort" data-sort="completion">Completion</th>
                   <th scope="col"></th> {% endcomment %}
                 </tr>
               </thead>
               <tbody class="list">
-                {% for project in projectlist %}
+                {% for project in project_task_list %}
                 <tr>
                     <th scope="row">
                         <div class="media align-items-center">
@@ -78,26 +80,48 @@
                                 <img alt="Image placeholder" src="/static/assets/img/theme/bootstrap.jpg">
                             </a> {% endcomment %}
                             <div class="media-body">
-                                <span class="name mb-0 text-sm">{{ project.title }}</span>
+                                <span class="name mb-0 text-sm">{{ project.module }}</span>
                             </div>
                         </div>
                     </th>
                     <td class="budget">
+                        {{ project.project }}
+                    </td>
+                    <td class="budget">
+                        {{ project.title }}
+                    </td>
+                    {% comment %} <td class="budget">
+                        {{ project.priority }}
+                    </td> {% endcomment %}
+                    <td class="status">
+                        <span class="badge bg-warning">Medium Priority</span>
+                    
+                    </td>
+                    <td class="budget">
                         {{ project.description }}
                     </td>
                     <td class="budget">
-                        {{ project.technology }}
+                        {{ project.status}}
                     </td>
-                    <td>
-                      <span class="badge badge-dot mr-4">
+                    <td class="budget">
+                        {{ project.totalMinutes}}
+                    </td>
+                    {% comment %} <span class="badge badge-dot mr-4">
                       <i class="bg-warning"></i>
                       <span class="status">Active</span>
                       </span>
                     </td>
+                    {% comment %} <td class="budget">
+                        <a href="{% url 'project_task_list' project_task_detail.id %}" class="btn btn-info"><i class="fas fa-edit mr-2"></i>Detail</a>
+                        <a href="{% url 'project_task_list' project_task_detail.id %}" class="btn btn-primary"><i class="fas fa-edit mr-2"></i>Edit</a>
+                        <a href="{% url 'project_task_list' project_task_detail.id %}" class="btn btn-danger"><i class="fas fa-trash mr-2"></i>Delete</a>
+                    </td> {% endcomment %}
                     <td class="budget">
-                        <a href="{% url 'projectdetail' project.id %}" class="btn btn-info"><i class="fas fa-info-circle mr-2"></i>Detail</a>
-                        {% comment %} <a href="{% url 'projectupdate' project.id %}" class="btn btn-primary"><i class="fas fa-edit mr-2"></i>Edit</a> {% endcomment %}
-                        <a href="{% url 'projectdelete' project.id %}" class="btn btn-danger"><i class="fas fa-trash mr-2"></i>Delete</a>
+                      {% comment %} <a href="{% url 'project_task_assign' project.id %}"class="btn btn-warning"><i class="fas fa-assign mr-2"></i>Assign</a> {% endcomment %}
+                      <a href="{% url 'project_task_detail' project.id %}" class ="btn btn-info"><i class="fas fa-edit mr-2"></i>Detail</a>
+                      <a href="{% url 'project_task_delete' project.id %}"class="btn btn-danger"><i class="fas fa-trash mr-2"></i>Delete</a>
+                      {% comment %} <a href="{% url 'project_task_update' project.id %}"class="btn btn-primary"><i class="fas fa-trash mr-2"></i>Update</a> {% endcomment %}
+                      
                     </td>
                 
             </tr>

@@ -1,6 +1,6 @@
 from django import forms
 from django.db import transaction
-from .models import Project,ProjectTeam
+from .models import Project,ProjectTeam ,ProjectModule ,Task
 from user.models import User
 
 class ProjectCreationForm(forms.ModelForm):
@@ -13,8 +13,8 @@ class ProjectCreationForm(forms.ModelForm):
             'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Project Description'}),
             'technology': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Project Technology'}),
             'estimatedHours': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': '12'}),
-            'startDate': forms.DateInput(attrs={'class': 'form-control datepicker', 'placeholder': 'MM/DD/YYYY'}),
-            'completionDate': forms.DateInput(attrs={'class': 'form-control datepicker', 'placeholder': 'MM/DD/YYYY'})
+            'startDate': forms.DateInput(attrs={'class': 'form-control datepicker', 'placeholder': 'DD/MM/YYYY'}),
+            'completionDate': forms.DateInput(attrs={'class': 'form-control datepicker', 'placeholder': 'DD/MM/YYYY'})
         }
 
     @transaction.atomic
@@ -40,4 +40,13 @@ class ProjectTeamCreationForm(forms.ModelForm):
         projectteam = super().save(commit=False)
         projectteam.save()
         return projectteam
-        
+
+class CreateProjectModuleForm(forms.ModelForm):
+     class Meta:
+        model = ProjectModule
+        fields = '__all__'      
+
+class CreateProjectTaskForm(forms.ModelForm):
+    class Meta:
+        model = Task
+        fields = '__all__' 

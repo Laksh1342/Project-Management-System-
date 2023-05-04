@@ -5,6 +5,9 @@ from .forms import ManagerRegisterForm, DeveloperRegisterForm, TeamLeaderRegiste
 from django.contrib.auth import login
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.decorators import login_required
+from django.views.generic import TemplateView
+from django.http import HttpResponse
+
 
 # Create your views here.
 class ManagerRegisterView(CreateView):
@@ -73,9 +76,9 @@ class UserLoginView(LoginView):
     def get_redirect_url(self):
         if self.request.user.is_authenticated:
             if self.request.user.is_manager:
-                return '/user/index/'
+                return '/user/managerdashboard/'
             if self.request.user.is_developer:
-                return '/user/index/'
+                return '/user/developerdashboard/'
             if self.request.user.is_teamleader:
                 return '/user/index/'
             else:
@@ -88,3 +91,32 @@ class UserLogoutView(LogoutView):
 @login_required(login_url='/user/login/')
 def indexView(request):
     return render(request, 'home/index.html')      
+
+# class ManagerDashboardView(TemplateView):
+#     def get_template_names(self):
+#         return '/user/managerdashboard.html'
+
+class ManagerDashboardView(TemplateView):
+    model = User
+    template_name = 'user/managerdashboard.html'
+    success_url = 'managerdashboard'
+
+    # def get_context_data(self, **kwargs):
+    #     kwargs['user_type'] = 'manager'
+    #     return super().get_context_data(**kwargs)
+# class DeveloperDashboardView(TemplateView):
+ #     def get_template_names(self):
+  #       return '/user/developerdashboard.html'
+
+class DeveloperDashboardView(TemplateView):
+     model = User
+     template_name = 'user/developerdashboard.html'
+     success_url = 'developerdashboard'
+
+class ProjectTaskList(TemplateView):
+    model = User
+    template_name = 'user/projecttasklist.html'
+    success_url = '/developerdashboard/projecttasklist'
+
+def login(request):
+    return render(request,"user/login.html")

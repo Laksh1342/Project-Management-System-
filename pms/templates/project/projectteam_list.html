@@ -5,6 +5,12 @@
 
 {% block content %}
 
+
+<div class="header bg-primary pb-6">
+  <div class="container-fluid">
+    <div class="header-body">
+      <a href="{% url 'projectteamcreate' %}" class="btn btn-warning mt-2"><i class="ni ni-bold-left mr-2"></i> Back</a>
+      
   <div class="header bg-primary pb-6">
     <div class="container-fluid">
       <div class="header-body">
@@ -19,10 +25,10 @@
               </ol>
             </nav>
           </div>
-          <div class="col-lg-6 col-5 text-right">
+          {% comment %} <div class="col-lg-6 col-5 text-right">
             <a href="#" class="btn btn-sm btn-neutral">New</a>
             <a href="#" class="btn btn-sm btn-neutral">Filters</a>
-          </div>
+          </div> {% endcomment %}
         </div>
       </div>
     </div>
@@ -74,15 +80,15 @@
                     <td>
                       <span class="badge badge-dot mr-4">
                       <i class="bg-warning"></i>
-                      <span class="status">pending</span>
+                      <span class="status">Active</span>
                       </span>
                     </td>
-                    <td class="budget">
-                        {% comment %} <a href="{% url 'projectteamdetail' team.project.id %}" class="btn btn-info"><i class="fas fa-info-circle mr-2"></i>Detail</a> {% endcomment %}
-                        {% comment %} <a href="{% url 'projectteamupdate' team.project.id %}" class="btn btn-primary"><i class="fas fa-angle-double-right mr-2"></i>Edit</a> {% endcomment %}
-                        {% comment %} <a href="{% url 'projectteamdelete' team.project.id %}" class="btn btn-danger"><i class="fas fa-trash mr-2"></i>Delete</a> {% endcomment %}
-                    </td>
-                
+                        <td class="budget">
+                          <a href="{% url 'projectteamlist'   %}" class="btn btn-info"><i class="fas fa-info-circle mr-2"></i>Detail</a> 
+                          <a href="{% url 'projectteamcreate'   %}" class="btn btn-primary"><i class="fas fa-angle-double-right mr-2"></i>Edit</a> 
+                          <a href="{% url 'projectteamdelete'   %}" class="btn btn-danger"><i class="fas fa-trash mr-2"></i>Delete</a>
+
+                        </td> 
             </tr>
             {% endfor %}
               </tbody>

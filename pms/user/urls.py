@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from .views import ManagerRegisterView, DeveloperRegisterView, TeamLeaderRegisterView, TesterRegisterView, UserLoginView, UserLogoutView, indexView
+from .views import ManagerRegisterView, DeveloperRegisterView, TeamLeaderRegisterView, TesterRegisterView, UserLoginView, UserLogoutView, indexView,ManagerDashboardView,DeveloperDashboardView,ProjectTaskList
 # from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
@@ -12,4 +12,11 @@ urlpatterns = [
     # path('logout/',LogoutView.as_view(), name='logout'),
     path('logout/', UserLogoutView.as_view(), name='logout'),
     path('index/', indexView, name='index'),
+
+    path('managerdashboard/',ManagerDashboardView.as_view(),name="managerdashboard"),
+    path('developerdashboard/',DeveloperDashboardView.as_view(),name="developerdashboard"),
+    path('developerdashboard/projecttasklist/',ProjectTaskList.as_view(),name='projecttasklist'),
+    #path('adminpage/',AdminPage.as_view(),name="adminpage"),
+    #path('userprofile/',UserProfileView.as_view(),name="userprofile"),
+    #path('userprofileupdate/<int:pk>',UserProfileUpdateView.as_view(),name="userprofileupdate"),
 ]

@@ -2,48 +2,6 @@ from django.db import models
 # from django.contrib.auth.models import AbstractUser
 from user.models import User
 
-# Create your models here.
-
-# class Role(models.Model):
-#     roleName = models.CharField(max_length=20,null=False,unique=True)
-
-#     createdtime = models.DateTimeField(auto_now_add=True)
-#     updatedtime = models.DateTimeField(auto_now=True)
-
-#     def __str__(self):
-#         return self.roleName
-
-#     class Meta:
-#         db_table = 'Role'
-
-# class User(AbstractUser):
-#     # role = models.ForeignKey(Role, on_delete=models.CASCADE)
-
-#     createdtime = models.DateTimeField(auto_now_add=True)
-#     updatedtime = models.DateTimeField(auto_now=True)
-
-#     def __str__(self):
-#         return self.first_name
-
-#     class Meta:
-#         db_table = 'user'
-
-# class User(models.Model):
-#     firstName = models.CharField(max_length=30)
-#     email = models.EmailField(max_length=30)
-#     password = models.CharField(max_length=30)
-#     role = models.ForeignKey(Role, on_delete=models.CASCADE)
-
-#     createdtime = models.DateTimeField(auto_now_add=True)
-#     updatedtime = models.DateTimeField(auto_now=True)
-
-#     def __str__(self):
-#         return self.firstName
-
-#     class Meta:
-#         db_table = 'User'
-
-
 class Project(models.Model):
     title = models.CharField(max_length=30, null=False)
     description = models.CharField(max_length=500)
@@ -89,7 +47,8 @@ class ProjectModule(models.Model):
     description = models.CharField(max_length=30)
     estimatedHours = models.PositiveIntegerField()
     status = models.ForeignKey(Status, on_delete=models.CASCADE)
-    startDate = models.DateField()
+    startDate = models.DateField(null=True)
+    endedDate = models.DateField(null=True)
 
     createdtime = models.DateTimeField(auto_now_add=True)
     updatedtime = models.DateTimeField(auto_now=True)
@@ -100,11 +59,13 @@ class ProjectModule(models.Model):
     class Meta:
         db_table = 'Project_module'
 
+priorityChoice =  (("High" ,"High") ,("Low" ,"Low") ,("Normal" ,"Normal"))
+
 class Task(models.Model):
     module = models.ForeignKey(ProjectModule, on_delete=models.CASCADE)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
-    priority = models.CharField(max_length=30)
+    priority = models.CharField(choices=priorityChoice ,max_length=30)
     description = models.CharField(max_length=500, null=False)
     status = models.ForeignKey(Status, on_delete=models.CASCADE)
     totalMinutes = models.PositiveIntegerField()
@@ -125,3 +86,19 @@ class UserTask(models.Model):
     class Meta:
         db_table = 'user_task'
 
+
+# class ProjectModule(models.Model):
+#      project = models.ForeignKey(Project, on_delete=models.CASCADE)
+#      moduleName = models.CharField(max_length=100)
+#      description = models.TextField()
+#      estimeted_hours = models.IntegerField()
+#      status = models.CharField(max_length=100)
+#      startDate = models.DateField()
+#      created_at = models.DateTimeField(auto_now_add=True)
+#      updated_at = models.DateTimeField(auto_now=True)
+    
+#      class Meta:
+#          db_table = 'project_module'
+    
+#      def __str__(self):
+#          return self.moduleName
